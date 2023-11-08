@@ -1,10 +1,10 @@
 require('dotenv').config()
 const Sequelize = require('sequelize')
-const {CONNECTION_STRING} = process.env
-console.log(CONNECTION_STRING)
+// const {CONNECTION_STRING} = process.env
+// console.log(CONNECTION_STRING)
 
 //let CONNECTION_STRING = process.env.CONNECTION_STRING
-
+const CONNECTION_STRING = 'postgresql://postgres:D1rNkjpZxCTBWEuw@db.jpygkqzvyldeqkkdffqh.supabase.co:5432/postgres'
 
 
 const sequelize = new Sequelize(CONNECTION_STRING, {
@@ -33,21 +33,10 @@ module.exports = {
                 rating integer,
                 country_id integer REFERENCES countries(country_id)
             );
-            insert into cities (name)
-            values ('San Diego'),
-            ('Los Angeles'),
-            ('New York'),
-            ('Seattle'),
-            ('Chicago'),
-            ('Boston'),
-            ('Dallas'),
-            ('Houston'),
-            ('Philadelphia'),
-            ('Washington'),
-            ('Phoenix'),
-            ('San Antonio'),
 
-            insert into countries (name)
+            
+
+            INSERT into countries (name)
             values ('Afghanistan'),
             ('Albania'),
             ('Algeria'),
@@ -243,6 +232,13 @@ module.exports = {
             ('Yemen'),
             ('Zambia'),
             ('Zimbabwe');
+            
+            INSERT into cities (name, rating, country_id)
+            values ('San Diego', 5, 187),
+            ('San Antonio', 3, 187),
+            ('Houston', 4, 187),
+            ('Dallas', 2, 187),
+            ('Austin', 1, 187);
         `).then(() => {
             console.log('DB seeded!')
             res.sendStatus(200)
@@ -261,8 +257,8 @@ module.exports = {
     },
 
 
-    getCities: (req, res) => {
-        sequelize.query('SELECT cities.city_id AS city_id, cities.name AS city, cities.rating AS rating, countries.name AS country FROM cities JOIN countries ON cities.country_id = countries.country_id')
+    getCountries: (req, res) => {
+        sequelize.query('SELECT * FROM countries')
             .then(dbRes => res.status(200).send(dbRes[0]))
     },
 
