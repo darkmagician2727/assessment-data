@@ -1,10 +1,9 @@
 require('dotenv').config()
 const Sequelize = require('sequelize')
-// const {CONNECTION_STRING} = process.env
+const {CONNECTION_STRING} = process.env
 // console.log(CONNECTION_STRING)
 
 //let CONNECTION_STRING = process.env.CONNECTION_STRING
-const CONNECTION_STRING = 'postgresql://postgres:D1rNkjpZxCTBWEuw@db.jpygkqzvyldeqkkdffqh.supabase.co:5432/postgres'
 
 
 const sequelize = new Sequelize(CONNECTION_STRING, {
